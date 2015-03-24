@@ -25,6 +25,7 @@ import butterknife.InjectView;
  * Adapter to handle creating a drawer with a User Header and User Settings.
  */
 public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String HEADER = "HEADER";
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_LIST_ITEM = 1;
     private final User mUser = getUserVinny();
@@ -53,8 +54,8 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
      */
     private User getUserVinny() {
         return User.builder().firstName("Vinny").lastName("Bucchino").email("vinny@gmail.com")
-            .userImageURL("http://upload.wikimedia.org/wikipedia/commons/0/0d/Astronaut_adam.jpg")
-            .build();
+                .userImageURL("http://upload.wikimedia.org/wikipedia/commons/0/0d/Astronaut_adam.jpg")
+                .build();
     }
 
     @Override
@@ -62,11 +63,11 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         if (viewType == TYPE_HEADER) {
             View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_drawer_header, parent, false);
+                    .inflate(R.layout.adapter_drawer_header, parent, false);
             return HeaderViewHolder.newInstance(view, parent.getContext());
         } else {
             View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.common_adapter_text_item, parent, false);
+                    .inflate(R.layout.common_adapter_text_item, parent, false);
             return ItemViewHolder.newInstance(view);
         }
 
@@ -79,12 +80,12 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Context context = viewHolder.view.getContext();
             viewHolder.userName.setText(mUser.firstName() + " " + mUser.lastName());
             Glide.with(context).load(mUser.userImageURL())
-                .transform(new GlideCircleTransform(context))
-                .placeholder(R.drawable.adam).error(R.drawable.evan)
-                .listener(getGlideListener(viewHolder)).into(viewHolder.userImage);
+                    .transform(new GlideCircleTransform(context))
+                    .placeholder(R.drawable.adam).error(R.drawable.evan)
+                    .listener(getGlideListener(viewHolder)).into(viewHolder.userImage);
 
             viewHolder.backgroundContainer.setBackgroundColor(
-                viewHolder.view.getContext().getResources().getColor(R.color.common_deep_purple));
+                    viewHolder.view.getContext().getResources().getColor(R.color.common_deep_purple));
         } else {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             viewHolder.name.setText(VALUES[position - 1]);
@@ -103,16 +104,16 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             @Override
             public boolean onException(
-                Exception e, String model, Target<GlideDrawable> target,
-                boolean isFirstResource) {
+                    Exception e, String model, Target<GlideDrawable> target,
+                    boolean isFirstResource) {
                 return false;
             }
 
             @Override
             public boolean onResourceReady(
-                GlideDrawable resource, String model,
-                Target<GlideDrawable> target, boolean isFromMemoryCache,
-                boolean isFirstResource) {
+                    GlideDrawable resource, String model,
+                    Target<GlideDrawable> target, boolean isFromMemoryCache,
+                    boolean isFirstResource) {
                 holder.userImage.setImageDrawable(resource);
                 return false;
             }
@@ -138,7 +139,11 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
      */
 
     public String getSettingValue(int position) {
-        return VALUES[position - 1];
+        if (position == 0) {
+            return HEADER;
+        } else {
+            return VALUES[position - 1];
+        }
     }
 
     /**

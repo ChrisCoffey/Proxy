@@ -64,8 +64,20 @@ public class ViewUtils {
         return dp / context.getResources().getDisplayMetrics().density;
     }
 
-    public static Bitmap getCircularBitmapImage(Bitmap source) {
-        int size = Math.min(source.getWidth(), source.getHeight());
+    /**
+     * Convert pixels to density pixels.
+     *
+     * @param context app context
+     * @param dp      pixel float value
+     * @return float density pixels
+     */
+    public static float pxToDp(Context context, float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
+    }
+
+    public static Bitmap getCircularBitmapImage(Context context, Bitmap source) {
+        int size = Math.min(source.getWidth(), source.getHeight())
+            * (int) (context.getResources().getDisplayMetrics().density);
         int x = (source.getWidth() - size) / 2;
         int y = (source.getHeight() - size) / 2;
         Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
@@ -84,4 +96,5 @@ public class ViewUtils {
         squaredBitmap.recycle();
         return bitmap;
     }
+
 }

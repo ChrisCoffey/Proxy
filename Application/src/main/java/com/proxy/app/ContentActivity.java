@@ -24,12 +24,12 @@ import static com.proxy.util.DebugUtils.getSimpleName;
 
 
 /**
- * The main activity this application launches.
+ * The main content activity this application launches.
  */
-public class MainActivity extends BaseActivity implements BaseRecyclerView.OnItemClickListener {
+public class ContentActivity extends BaseActivity implements BaseRecyclerView.OnItemClickListener {
 
     //Static Fields
-    private static final String TAG = getSimpleName(MainActivity.class);
+    private static final String TAG = getSimpleName(ContentActivity.class);
     //Views
     @InjectView(R.id.common_toolbar)
     Toolbar mToolbar;
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements BaseRecyclerView.OnIte
         initializeRecyclerView();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_main_container, new MainFragment()).commit();
+                    .replace(R.id.activity_main_container, new MainFragment()).commit();
         }
     }
 
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements BaseRecyclerView.OnIte
     private void initializeRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = DrawerRecyclerAdapter.newInstance(
-            getResources().getStringArray(R.array.drawer_settings));
+                getResources().getStringArray(R.array.drawer_settings));
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements BaseRecyclerView.OnIte
     @SuppressLint("NewApi")
     private void initializeDrawer() {
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawer,
-            mToolbar, R.string.common_open, R.string.common_closed) {
+                mToolbar, R.string.common_open, R.string.common_closed) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -117,9 +117,10 @@ public class MainActivity extends BaseActivity implements BaseRecyclerView.OnIte
     @Override
     public void onItemClick(View view, int position) {
         if (getSetting(R.string.settings_logout)
-            .equals(mAdapter.getSettingValue(position))) {
-            IntentLauncher.launchLoginActivity(MainActivity.this, true);
+                .equals(mAdapter.getSettingValue(position))) {
+            IntentLauncher.launchLoginActivity(ContentActivity.this, true);
             finish();
         }
     }
 }
+

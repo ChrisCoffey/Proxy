@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.proxy.app.LoginActivity;
-import com.proxy.app.MainActivity;
+import com.proxy.app.ContentActivity;
 
 import static com.proxy.util.Intents.ACTION_LOGIN;
 import static com.proxy.util.Intents.ACTION_BASE_ACTIVITY;
@@ -23,7 +23,7 @@ public final class IntentLauncher {
     }
 
     /**
-     * Launch the {@link MainActivity}.
+     * Launch the {@link ContentActivity}.
      *
      * @param context The context used to start this intent
      */
